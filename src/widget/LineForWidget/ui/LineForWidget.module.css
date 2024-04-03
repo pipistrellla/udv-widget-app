@@ -1,0 +1,4 @@
+.LineForWidget {
+    flex-grow: 1;
+    border: solid 2px black;
+}
