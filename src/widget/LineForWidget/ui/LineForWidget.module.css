@@ -1,4 +1,9 @@
 .LineForWidget {
+    margin:20px ;
     flex-grow: 1;
     border: solid 2px black;
+    height: var(--line-for-widget-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
