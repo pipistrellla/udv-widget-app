@@ -44,6 +44,7 @@ module.exports = {
         }],
         'nonblock-statement-body-position': ['error', 'below'],
         curly: ['error', 'multi-or-nest'],
+        'max-len': ['warn', { code: 120 }],
         // 'arrow-body-style': ['error', 'always'],
 
     },
