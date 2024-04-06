@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
 import cls from './MainPage.module.css';
 
 interface MainPageProps {
@@ -7,7 +8,7 @@ interface MainPageProps {
 
 export interface IWidget{
     id: number;
-    title: string
+    title: any
 }
 
 export interface IWidgetBoard {
@@ -21,21 +22,21 @@ const MainPage: FC<MainPageProps> = () => {
         {
             id: 1,
             items: [
-                { id: 1, title: '1л' },
-                { id: 2, title: '2л' },
-                { id: 3, title: '3л' }],
+                { id: 1, title: <WidgetWrap>1 left</WidgetWrap> },
+                { id: 2, title: <WidgetWrap>12 12313123</WidgetWrap> },
+                { id: 3, title: <WidgetWrap>134 12313123</WidgetWrap> }],
         },
         {
             id: 2,
             items: [
-                { id: 4, title: '1center' },
-                { id: 5, title: '2center' },
+                { id: 4, title: <WidgetWrap>1 center</WidgetWrap> },
+                { id: 5, title: <WidgetWrap>2 center</WidgetWrap> },
             ],
         },
         {
             id: 3,
             items: [
-                { id: 6, title: '1 right' },
+                { id: 6, title: <WidgetWrap>1 right</WidgetWrap> },
             ],
         },
 
@@ -76,9 +77,9 @@ const MainPage: FC<MainPageProps> = () => {
 
         e.preventDefault();
 
-        const currentIndex = currentBoard!.items.indexOf(currentWidget!);
+        const currentIndex:number = currentBoard!.items.indexOf(currentWidget!);
         currentBoard!.items.splice(currentIndex, 1);
-        const dropIndex = board.items.indexOf(widget);
+        const dropIndex:number = board.items.indexOf(widget);
         board.items.splice(dropIndex + 1, 0, currentWidget!);
 
         setWidgetBoards(WidgetBoards.map((b) => {
@@ -101,7 +102,7 @@ const MainPage: FC<MainPageProps> = () => {
             return;
 
         board.items.push(currentWidget!);
-        const currentIndex = currentBoard!.items.indexOf(currentWidget!);
+        const currentIndex:number = currentBoard!.items.indexOf(currentWidget!);
         currentBoard!.items.splice(currentIndex, 1);
         setWidgetBoards(WidgetBoards.map((b) => {
 
@@ -125,9 +126,39 @@ const MainPage: FC<MainPageProps> = () => {
             [
                 WidgetBoards[0],
                 WidgetBoards[1],
-                { id: 3, items: [...WidgetBoards[2].items, { id: Date.now(), title: text }] },
+                {
+                    id: 3,
+                    items: [...WidgetBoards[2].items, {
+                        id: Date.now(),
+                        title: <WidgetWrap>{text}</WidgetWrap>,
+                    }],
+                },
             ],
         );
+
+    };
+
+    const deleteWidget = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        widget:IWidget,
+        board:IWidgetBoard,
+    ):void => {
+
+        e.preventDefault();
+
+        const currentIndex:number = board!.items.indexOf(widget!);
+        board.items.splice(currentIndex, 1);
+        setWidgetBoards(WidgetBoards.map((b) => {
+
+            if (b.id === board.id)
+                return board;
+
+            if (b.id === board!.id)
+                return board!;
+
+            return b;
+
+        }));
 
     };
 
@@ -143,6 +174,7 @@ const MainPage: FC<MainPageProps> = () => {
                         onDragOver={(e:React.DragEvent<HTMLDivElement>) => DragOverHandler(e)}
                         onDrop={(e:React.DragEvent<HTMLDivElement>) => DropWidgetHandler(e, board)}
                         className={cls.MainPageWidgetBoard}
+                        key={board.id}
                     >
 
                         {board.items.map((widget) => (
@@ -154,8 +186,17 @@ const MainPage: FC<MainPageProps> = () => {
                                 onDrop={(e:React.DragEvent<HTMLDivElement>) => DropHandler(e, board, widget)}
                                 className={cls.Widget}
                                 draggable
+                                key={widget.id}
                             >
                                 {widget.title}
+                                <button
+                                    type="button"
+                                    onClick={
+                                        (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => deleteWidget(e, widget, board)
+                                    }
+                                >
+                                    удалить
+                                </button>
                             </div>
                         ))}
 
