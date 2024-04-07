@@ -2,19 +2,24 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 1dvh;
+    padding: 10px;
+}
+
+.AddWidget {
+    margin: 5px
 }
 
 .MainPageBoard {
-    padding: 1dvh;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 95dvh;
+    height: 90dvh;
     width: 100%;
 }
 
 .MainPageWidgetBoard {
+    overflow: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,6 +27,7 @@
     margin: 20px;
     padding: 10px;
     height: 100% ;
+    width: 40dvh;
     flex-grow: 1;
     border: 2px solid black;
 }

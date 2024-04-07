@@ -1,53 +1,24 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
 import Stopwatch from 'components/widgets/Stopwatch/Stopwatch';
 import Timer from 'components/widgets/Timer/Timer';
 import Weather from 'components/widgets/Weather/Weather';
+import { IWidgetBoard, IWidget, WidgetsEnum } from 'components/models/projectModels';
 import cls from './MainPage.module.css';
 
 interface MainPageProps {
 
 }
 
-export interface IWidget{
-    id: number;
-    title: any
-}
-
-export interface IWidgetBoard {
-    id: number;
-    items: IWidget[];
-}
-
-enum WidgetsEnum {
-    STOPWATCH= 'stopwatch',
-    TIMER = 'timer',
-    WEATHER = 'weather'
-}
-
 const MainPage: FC<MainPageProps> = () => {
 
-    const [WidgetBoards, setWidgetBoards] = useState<IWidgetBoard[]>([
-        {
-            id: 1,
-            items: [
-                { id: 1, title: <Stopwatch /> },
-            ],
-        },
-        {
-            id: 2,
-            items: [
-                { id: 4, title: <Timer /> },
-            ],
-        },
-        {
-            id: 3,
-            items: [
-                { id: 6, title: <Weather /> },
-            ],
-        },
-
-    ]);
+    const [WidgetBoards, setWidgetBoards] = useState<IWidgetBoard[]>(
+        [
+            { id: 1, items: [] },
+            { id: 2, items: [] },
+            { id: 3, items: [] },
+        ],
+    );
 
     const [currentBoard, setCurrentBoard] = useState<IWidgetBoard | null>(null);
     const [currentWidget, setCurrentWidget] = useState<IWidget | null>(null);
@@ -179,16 +150,19 @@ const MainPage: FC<MainPageProps> = () => {
         }));
 
     };
+
     return (
         <div className={cls.MainPage}>
-
-            <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setText(e.target.value)}>
+            <select
+                className={cls.AddWidget}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setText(e.target.value)}
+            >
                 <option disabled selected value="null"> выберите виджет для добавления</option>
                 <option value={WidgetsEnum.STOPWATCH}>Секундомер</option>
                 <option value={WidgetsEnum.TIMER}>Таймер</option>
                 <option value={WidgetsEnum.WEATHER}>Прогноз погоды</option>
             </select>
-            <button type="button" onClick={() => AddWidget(text)}> добавить виджет </button>
+            <button className={cls.AddWidget} type="button" onClick={() => AddWidget(text)}> добавить виджет </button>
 
             <div className={cls.MainPageBoard}>
                 {WidgetBoards.map((board) => (
