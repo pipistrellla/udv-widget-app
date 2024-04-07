@@ -61,6 +61,7 @@ const Stopwatch: FC<StopwatchProps> = () => {
 
     const handleClick = (e:React.MouseEvent<HTMLButtonElement>) => {
 
+        e.preventDefault();
         setIsWorking(!isWorking);
         if (isWorking)
             setTimer(setInterval(tick, 1000));
@@ -72,20 +73,30 @@ const Stopwatch: FC<StopwatchProps> = () => {
     return (
         <WidgetWrap>
             {time}
-            <button
-                disabled={!isWorking}
-                type="button"
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
-            >
-                старт
-            </button>
-            <button
-                disabled={isWorking}
-                type="button"
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
-            >
-                стоп
-            </button>
+            <div className={cls.Options}>
+                <button
+                    disabled={!isWorking}
+                    type="button"
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
+                >
+                    старт
+                </button>
+                <button
+                    disabled={isWorking}
+                    type="button"
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
+                >
+                    стоп
+                </button>
+
+            </div>
+            <select>
+                <option selected disabled value="null">изменить размер</option>
+                <option>большой</option>
+                <option>средний</option>
+                <option>маленький</option>
+            </select>
+
         </WidgetWrap>
     );
 
