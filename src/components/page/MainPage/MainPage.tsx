@@ -1,5 +1,8 @@
 import React, { FC, useState } from 'react';
 import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
+import Stopwatch from 'components/widgets/Stopwatch/Stopwatch';
+import Timer from 'components/widgets/Timer/Timer';
+import Weather from 'components/widgets/Weather/Weather';
 import cls from './MainPage.module.css';
 
 interface MainPageProps {
@@ -16,27 +19,31 @@ export interface IWidgetBoard {
     items: IWidget[];
 }
 
+enum WidgetsEnum {
+    STOPWATCH= 'stopwatch',
+    TIMER = 'timer',
+    WEATHER = 'weather'
+}
+
 const MainPage: FC<MainPageProps> = () => {
 
     const [WidgetBoards, setWidgetBoards] = useState<IWidgetBoard[]>([
         {
             id: 1,
             items: [
-                { id: 1, title: <WidgetWrap>1 left</WidgetWrap> },
-                { id: 2, title: <WidgetWrap>12 12313123</WidgetWrap> },
-                { id: 3, title: <WidgetWrap>134 12313123</WidgetWrap> }],
+                { id: 1, title: <Stopwatch /> },
+            ],
         },
         {
             id: 2,
             items: [
-                { id: 4, title: <WidgetWrap>1 center</WidgetWrap> },
-                { id: 5, title: <WidgetWrap>2 center</WidgetWrap> },
+                { id: 4, title: <Timer /> },
             ],
         },
         {
             id: 3,
             items: [
-                { id: 6, title: <WidgetWrap>1 right</WidgetWrap> },
+                { id: 6, title: <Weather /> },
             ],
         },
 
@@ -118,23 +125,34 @@ const MainPage: FC<MainPageProps> = () => {
 
     };
 
-    const [text, setText] = useState<string>('123');
+    const [text, setText] = useState<string | null>(null);
 
-    const AddWidget = (text:string) => {
+    const Widgets = new Map<string, React.ReactNode>([
+        ['stopwatch', <Stopwatch />],
+        ['timer', <Timer />],
+        ['weather', <Weather />],
 
-        setWidgetBoards(
-            [
-                WidgetBoards[0],
-                WidgetBoards[1],
-                {
-                    id: 3,
-                    items: [...WidgetBoards[2].items, {
-                        id: Date.now(),
-                        title: <WidgetWrap>{text}</WidgetWrap>,
-                    }],
-                },
-            ],
-        );
+    ]);
+
+    const AddWidget = (text:string | null) => {
+
+        if (text !== null) {
+
+            setWidgetBoards(
+                [
+                    WidgetBoards[0],
+                    WidgetBoards[1],
+                    {
+                        id: 3,
+                        items: [...WidgetBoards[2].items, {
+                            id: Date.now(),
+                            title: <WidgetWrap>{Widgets.get(text)}</WidgetWrap>,
+                        }],
+                    },
+                ],
+            );
+
+        }
 
     };
 
@@ -161,11 +179,15 @@ const MainPage: FC<MainPageProps> = () => {
         }));
 
     };
-
     return (
         <div className={cls.MainPage}>
 
-            <input type="text" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)} />
+            <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setText(e.target.value)}>
+                <option disabled selected value="null"> выберите виджет для добавления</option>
+                <option value={WidgetsEnum.STOPWATCH}>Секундомер</option>
+                <option value={WidgetsEnum.TIMER}>Таймер</option>
+                <option value={WidgetsEnum.WEATHER}>Прогноз погоды</option>
+            </select>
             <button type="button" onClick={() => AddWidget(text)}> добавить виджет </button>
 
             <div className={cls.MainPageBoard}>
