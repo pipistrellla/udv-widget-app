@@ -4,6 +4,8 @@ import Stopwatch from 'components/widgets/Stopwatch/Stopwatch';
 import Timer from 'components/widgets/Timer/Timer';
 import Weather from 'components/widgets/Weather/Weather';
 import { IWidgetBoard, IWidget, WidgetsEnum } from 'components/models/projectModels';
+import Button from 'components/ui/Button/Button';
+import Select from 'components/ui/Select/Select';
 import cls from './MainPage.module.css';
 
 interface MainPageProps {
@@ -28,7 +30,7 @@ const MainPage: FC<MainPageProps> = () => {
         e.preventDefault();
 
         if ((e.target as HTMLDivElement).className === cls.Widget)
-            (e.target as HTMLDivElement).style.boxShadow = '0 4px 3px gray';
+            (e.target as HTMLDivElement).style.boxShadow = '4px 20px 20px -10px black';
 
     };
 
@@ -53,6 +55,7 @@ const MainPage: FC<MainPageProps> = () => {
 
     const DropHandler = (e: React.DragEvent<HTMLDivElement>, board:IWidgetBoard, widget:IWidget) => {
 
+        (e.target as HTMLDivElement).style.boxShadow = 'none';
         e.preventDefault();
 
         const currentIndex:number = currentBoard!.items.indexOf(currentWidget!);
@@ -96,7 +99,7 @@ const MainPage: FC<MainPageProps> = () => {
 
     };
 
-    const [text, setText] = useState<string | null>(null);
+    const [text, setText] = useState<string>('Выберите виджет');
 
     const Widgets = new Map<string, React.ReactNode>([
         ['stopwatch', <Stopwatch />],
@@ -105,9 +108,9 @@ const MainPage: FC<MainPageProps> = () => {
 
     ]);
 
-    const AddWidget = (text:string | null) => {
+    const AddWidget = (text:string) => {
 
-        if (text !== null) {
+        if (text !== 'Выберите виджет') {
 
             setWidgetBoards(
                 [
@@ -153,16 +156,18 @@ const MainPage: FC<MainPageProps> = () => {
 
     return (
         <div className={cls.MainPage}>
-            <select
-                className={cls.AddWidget}
+            <Select
+                defaultValue="Выберите виджет"
+                options={
+                    [
+                        { value: WidgetsEnum.STOPWATCH, name: 'Секундомер' },
+                        { value: WidgetsEnum.TIMER, name: 'Таймер' },
+                        { value: WidgetsEnum.WEATHER, name: 'Прогноз погоды' },
+                    ]
+                }
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setText(e.target.value)}
-            >
-                <option disabled selected value="null"> выберите виджет для добавления</option>
-                <option value={WidgetsEnum.STOPWATCH}>Секундомер</option>
-                <option value={WidgetsEnum.TIMER}>Таймер</option>
-                <option value={WidgetsEnum.WEATHER}>Прогноз погоды</option>
-            </select>
-            <button className={cls.AddWidget} type="button" onClick={() => AddWidget(text)}> добавить виджет </button>
+            />
+            <Button onClick={() => AddWidget(text)}> добавить виджет </Button>
 
             <div className={cls.MainPageBoard}>
                 {WidgetBoards.map((board) => (
@@ -185,14 +190,13 @@ const MainPage: FC<MainPageProps> = () => {
                                 key={widget.id}
                             >
                                 {widget.title}
-                                <button
-                                    type="button"
+                                <Button
                                     onClick={
                                         (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => deleteWidget(e, widget, board)
                                     }
                                 >
                                     удалить
-                                </button>
+                                </Button>
                             </div>
                         ))}
 

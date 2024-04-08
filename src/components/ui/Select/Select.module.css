@@ -1,0 +1,10 @@
+.Select {
+    margin: 0 6px 6px 6px;
+    padding: 5px 0px 5px 0px;
+    color: black ;
+    text-align: center;
+    background-color: var(--btn-color);
+    border: 2px solid black ;
+    cursor: pointer; 
+    width: 200px;
+}

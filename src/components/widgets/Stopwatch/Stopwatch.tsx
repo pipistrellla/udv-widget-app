@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
+import Button from 'components/ui/Button/Button';
+import Select from 'components/ui/Select/Select';
 import cls from './Stopwatch.module.css';
 
 interface StopwatchProps {
@@ -74,28 +76,32 @@ const Stopwatch: FC<StopwatchProps> = () => {
         <WidgetWrap>
             {time}
             <div className={cls.Options}>
-                <button
+                <Button
                     disabled={!isWorking}
                     type="button"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
                 >
                     старт
-                </button>
-                <button
+                </Button>
+                <Button
                     disabled={isWorking}
                     type="button"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
                 >
                     стоп
-                </button>
+                </Button>
 
             </div>
-            <select>
-                <option selected disabled value="null">изменить размер</option>
-                <option>большой</option>
-                <option>средний</option>
-                <option>маленький</option>
-            </select>
+            <Select
+                defaultValue="изменить размер"
+                options={[
+                    { value: 'большой', name: 'большой' },
+                    { value: 'средний', name: 'средний' },
+                    { value: 'маленький', name: 'маленький' },
+
+                ]}
+
+            />
 
         </WidgetWrap>
     );

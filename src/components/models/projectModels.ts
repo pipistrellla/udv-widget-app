@@ -20,3 +20,21 @@ export interface IWidgetStore {
     activeWidgets: string,
     setWidgetBoard: (widgetBoard:IWidgetBoard[]) => void
 }
+
+export type Data = {
+    name: string
+    main :{
+        humidity: number
+        temp: number
+    }
+    wind: {
+        speed: number
+    }
+    cod: number
+}
+
+export enum WidgetSize {
+    LARGE = 'large',
+    SMALL = 'small',
+    MEDIUM = 'medium',
+}

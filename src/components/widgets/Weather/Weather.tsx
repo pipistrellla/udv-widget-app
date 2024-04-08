@@ -1,20 +1,12 @@
 import React, { FC, useState } from 'react';
 import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
+import { Data } from 'components/models/projectModels';
+import Button from 'components/ui/Button/Button';
+import Input from 'components/ui/Input/Input';
 import cls from './Weather.module.css';
 
 interface WeatherProps {
 
-}
-export type Data = {
-    name: string
-    main :{
-        humidity: number
-        temp: number
-    }
-    wind: {
-        speed: number
-    }
-    cod: number
 }
 
 const Weather: FC<WeatherProps> = () => {
@@ -38,19 +30,18 @@ const Weather: FC<WeatherProps> = () => {
 
         const response = await fetch(URL);
         setData(await response.json());
-        console.log(data);
 
     };
     if (Number(data?.cod) === 404 || Number(data?.cod === 0)) {
 
         return (
             <div>
-                <input
+                <Input
                     type="text"
                     placeholder="введите город"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
                 />
-                <button type="button" onClick={() => checkWeather()}>поиск</button>
+                <Button onClick={() => checkWeather()}>поиск</Button>
                 {Number(data?.cod) === 404 ? <div>такого города не существует</div> : <div />}
             </div>
         );
