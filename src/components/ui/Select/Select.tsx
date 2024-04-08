@@ -23,8 +23,9 @@ const Select: FC<SelectProps> = (props) => {
         <select
             {...otherProps}
             className={cls.Select}
+            value={defaultValue}
         >
-            <option selected disabled value={defaultValue}>
+            <option disabled value={defaultValue}>
                 {' '}
                 {defaultValue}
                 {' '}

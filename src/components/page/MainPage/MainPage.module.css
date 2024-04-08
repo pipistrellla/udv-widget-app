@@ -44,3 +44,15 @@
     background-color: var(--widget-color-s) ;
     border-radius: var(--border-radius);
 }
+
+@media screen and (max-height: 1000px) {
+    .MainPageBoard {
+        height: 80dvh;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .MainPageBoard {
+        height: 70dvh;
+    }
+}
