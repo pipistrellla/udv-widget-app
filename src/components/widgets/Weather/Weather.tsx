@@ -3,6 +3,7 @@ import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
 import { Data } from 'components/models/projectModels';
 import Button from 'components/ui/Button/Button';
 import Input from 'components/ui/Input/Input';
+import Select from 'components/ui/Select/Select';
 import cls from './Weather.module.css';
 
 interface WeatherProps {
@@ -11,6 +12,7 @@ interface WeatherProps {
 
 const Weather: FC<WeatherProps> = () => {
 
+    const [weatherType, setWeatherType] = useState('стандартный');
     const tempData:Data = {
         name: 'awdada',
         cod: 0,
@@ -35,19 +37,29 @@ const Weather: FC<WeatherProps> = () => {
     if (Number(data?.cod) === 404 || Number(data?.cod === 0)) {
 
         return (
-            <div>
+            <div className={cls.Weather}>
                 <Input
                     type="text"
                     placeholder="введите город"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
                 />
                 <Button onClick={() => checkWeather()}>поиск</Button>
+                <Select
+                    defaultValue="Тип информации"
+                    options={[
+                        { value: 'подробный', name: 'подробный' },
+                        { value: 'стандартный', name: 'стандартный' },
+                        { value: 'краткий', name: 'краткий' },
+                    ]}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setWeatherType(e.target.value)}
+
+                />
                 {Number(data?.cod) === 404 ? <div>такого города не существует</div> : <div />}
             </div>
         );
 
     }
-
+    console.log(weatherType);
     return (
         <WidgetWrap>
 
