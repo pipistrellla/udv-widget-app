@@ -17,8 +17,6 @@ const Stopwatch: FC<StopwatchProps> = () => {
     const [time, setTime] = useState<string>('00:00:00');
     const [isWorking, setIsWorking] = useState<boolean>(true);
     const [timer, setTimer] = useState<any>();
-    const [stopwatchSize, setStopwatchSize] = useState('средний');
-
     const tick = () => {
 
         sec += 1;
@@ -72,38 +70,30 @@ const Stopwatch: FC<StopwatchProps> = () => {
             clearInterval(timer);
 
     };
-    console.log(stopwatchSize);
     return (
         <WidgetWrap>
-            {time}
-            <div className={cls.Options}>
-                <Button
-                    disabled={!isWorking}
-                    type="button"
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
-                >
-                    старт
-                </Button>
-                <Button
-                    disabled={isWorking}
-                    type="button"
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
-                >
-                    стоп
-                </Button>
+            <div className={cls.Stopwatch}>
+                <div className={cls.Time}>
+                    {time}
+                </div>
+                <div className={cls.Options}>
+                    <Button
+                        disabled={!isWorking}
+                        type="button"
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
+                    >
+                        старт
+                    </Button>
+                    <Button
+                        disabled={isWorking}
+                        type="button"
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClick(e)}
+                    >
+                        стоп
+                    </Button>
 
+                </div>
             </div>
-            <Select
-                defaultValue="изменить размер"
-                options={[
-                    { value: 'большой', name: 'большой' },
-                    { value: 'средний', name: 'средний' },
-                    { value: 'маленький', name: 'маленький' },
-                ]}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setStopwatchSize(e.target.value)}
-
-            />
-
         </WidgetWrap>
     );
 

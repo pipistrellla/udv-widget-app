@@ -21,20 +21,29 @@ export interface IWidgetStore {
     setWidgetBoard: (widgetBoard:IWidgetBoard[]) => void
 }
 
-export type Data = {
+export type WeatherData = {
     name: string
     main :{
         humidity: number
         temp: number
+        feels_like: number
+        pressure: number
     }
     wind: {
         speed: number
     }
     cod: number
+    sys: {
+        country: string
+    }
 }
 
-export enum WidgetSize {
-    LARGE = 'large',
-    SMALL = 'small',
-    MEDIUM = 'medium',
+export enum WeatherShow {
+    SHORT = 'short',
+    NORMAL = 'normal'
+}
+
+export enum TimerType {
+    SILENT = 'Silent',
+    NORMAL = 'Normal'
 }
