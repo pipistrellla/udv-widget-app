@@ -19,3 +19,30 @@
     width: 200px;
     height: 100px;
 }
+
+@media screen and (max-width: 1100px) {
+
+    .Stopwatch {
+
+        height: 150px;
+        width: 150px;
+    }
+
+    .Time {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+    .Stopwatch {
+
+        height: 120px;
+        width: 110px;
+
+    }
+    .Time {
+        font-size: 20px;
+    }
+
+}

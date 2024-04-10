@@ -15,7 +15,6 @@ interface TimerProps {
 const Timer: FC<TimerProps> = () => {
 
     const [time, setTime] = useState<number>(1);
-    const [inputValue, setInputValue] = useState<number>(1);
     const [TimerID, setTimerID] = useState<any>();
     const [isWorking, setIsWorking] = useState<boolean>(true);
     const [timerType, setTimerType] = useState<string>(TimerType.SILENT);
@@ -83,6 +82,8 @@ const Timer: FC<TimerProps> = () => {
                     </Button>
                 </div>
                 <Select
+                    disabled={!isWorking}
+                    className={cls.Select}
                     defaultValue={timerType === TimerType.NORMAL ? 'с индикацией' : 'без индикации'}
                     options={[
                         { value: TimerType.NORMAL, name: 'с индикацией' },

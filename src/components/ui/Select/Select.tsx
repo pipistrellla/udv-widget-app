@@ -31,7 +31,7 @@ const Select: FC<SelectProps> = (props) => {
                 {' '}
             </option>
             {options.map((option) => (
-                <option value={option.value}>
+                <option key={option.value} value={option.value}>
                     {' '}
                     {option.name}
                     {' '}

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
 import Stopwatch from 'components/widgets/Stopwatch/Stopwatch';
 import Timer from 'components/widgets/Timer/Timer';
@@ -24,7 +24,8 @@ const MainPage: FC<MainPageProps> = () => {
 
     const [currentBoard, setCurrentBoard] = useState<IWidgetBoard | null>(null);
     const [currentWidget, setCurrentWidget] = useState<IWidget | null>(null);
-
+    // -----------------------------------------------------------------------
+    // работа с drag and drop
     const DragOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
 
         e.preventDefault();
@@ -98,7 +99,7 @@ const MainPage: FC<MainPageProps> = () => {
         }));
 
     };
-
+    // ---------------------------------------------------------------------------------------------------------------
     const [text, setText] = useState<string>('Выберите виджет');
 
     const Widgets = new Map<string, React.ReactNode>([

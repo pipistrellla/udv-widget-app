@@ -1,7 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import WidgetWrap from 'components/ui/WidgetWrap/WidgetWrap';
 import Button from 'components/ui/Button/Button';
-import Select from 'components/ui/Select/Select';
 import cls from './Stopwatch.module.css';
 
 interface StopwatchProps {

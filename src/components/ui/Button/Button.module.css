@@ -3,4 +3,14 @@
     margin: 4px;
     background-color: var(--btn-color);
     border-radius: var(--border-radius);
+    transition: all 0.44s;
+}
+
+.Button:disabled {
+    cursor: not-allowed;
+}
+
+.Button:hover {
+    scale: 1.2;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
