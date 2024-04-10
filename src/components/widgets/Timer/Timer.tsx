@@ -4,7 +4,7 @@ import Button from 'components/ui/Button/Button';
 import Input from 'components/ui/Input/Input';
 import { TimerType } from 'components/models/projectModels';
 import Select from 'components/ui/Select/Select';
-import TimerAlert from 'components/ui/Button/TimerAlert/TimerAlert';
+import TimerAlert from 'components/ui/TimerAlert/TimerAlert';
 import Modal from 'components/ui/Modal/Modal';
 import cls from './Timer.module.css';
 
@@ -18,7 +18,7 @@ const Timer: FC<TimerProps> = () => {
     const [TimerID, setTimerID] = useState<any>();
     const [isWorking, setIsWorking] = useState<boolean>(true);
     const [timerType, setTimerType] = useState<string>(TimerType.SILENT);
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState<boolean>(false);
 
     const Timer = () => {
 
